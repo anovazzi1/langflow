@@ -1,13 +1,16 @@
 """Setup script."""
+
+
 import re
 from os import path
 from io import open
 from setuptools import setup, find_packages
+from setuptools.command.sdist import sdist
 
 __encode__ = "utf8"
 
 DISTNAME = "langflow"
-DESCRIPTION = "Python package that "
+DESCRIPTION = "Python package to help create language model flows"
 AUTHOR = ""
 AUTHOR_EMAIL = ""
 URL = "https://github.com/logspace-ai/langflow"
@@ -26,6 +29,18 @@ CLASSIFIERS = [
 ]
 
 
+class CustomSdistCommand(sdist):
+    def run(self):
+        import subprocess
+
+        # js files are in langflow/frontend and we need to build them
+        # before we can package them
+        subprocess.check_call(["npm", "install"], cwd="langflow/frontend")
+        subprocess.check_call(["npm", "run", "build"], cwd="langflow/frontend")
+
+        sdist.run(self)
+
+
 __cwd__ = path.abspath(path.dirname(__file__))
 __readme_file__ = path.join(__cwd__, "README.md")
 with open(__readme_file__, encoding=__encode__) as readme:
@@ -33,9 +48,9 @@ with open(__readme_file__, encoding=__encode__) as readme:
 
 
 _version_re__ = r"__version__\s*=\s*['\"]([^'\"]+)['\"]"
-__init_file__ = path.join(__cwd__, "%s/__init__.py" % DISTNAME)
+__init_file__ = path.join(__cwd__, f"{DISTNAME}/__init__.py")
 with open(__init_file__, encoding=__encode__) as __init__py:
-    VERSION = re.search(_version_re__, __init__py.read()).group(1)
+    VERSION = re.search(_version_re__, __init__py.read())[1]
 
 
 if __name__ == "__main__":
@@ -58,4 +73,5 @@ if __name__ == "__main__":
         tests_require=["pytest"],
         extras_require={},
         entry_points={"console_scripts": ["langflow=langflow.cli:main"]},
+        cmdclass={"sdist": CustomSdistCommand},
     )
