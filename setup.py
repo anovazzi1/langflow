@@ -6,12 +6,13 @@ from os import path
 from io import open
 from setuptools import setup, find_packages
 from setuptools.command.sdist import sdist
+from pathlib import Path
 
 __encode__ = "utf8"
 
 DISTNAME = "langflow"
 DESCRIPTION = "Python package to help create language model flows"
-AUTHOR = ""
+AUTHOR = "Ibis Prevedello, Otávio Anovazzi, Lucas Oliveira"
 AUTHOR_EMAIL = ""
 URL = "https://github.com/logspace-ai/langflow"
 LICENSE = "MIT License"
@@ -35,8 +36,9 @@ class CustomSdistCommand(sdist):
 
         # js files are in langflow/frontend and we need to build them
         # before we can package them
-        subprocess.check_call(["npm", "install"], cwd="langflow/frontend")
-        subprocess.check_call(["npm", "run", "build"], cwd="langflow/frontend")
+        front_path = Path("langflow/frontend")
+        subprocess.check_call(["npm", "install"], cwd=front_path, shell=True)
+        subprocess.check_call(["npm", "run", "build"], cwd=front_path, shell=True)
 
         sdist.run(self)
 
