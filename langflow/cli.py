@@ -2,13 +2,15 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
+from langflow.app import create_app
+
 # get the directory of the current file
 path = Path(__file__).parent
 static_files_dir = path / "frontend/build"
-app = FastAPI()
+app = create_app()
 
 app.mount(
-    "/",
+    "/app",
     StaticFiles(directory=static_files_dir, html=True),
     name="static",
 )
