@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from endpoints import router as endpoints_router
-from list_endpoints import router as list_router
-from signature import router as signatures_router
+from langflow.endpoints import router as endpoints_router
+from langflow.list_endpoints import router as list_router
+from langflow.signature import router as signatures_router
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -29,9 +29,9 @@ def create_app():
     return app
 
 
-app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
+    app = create_app()
 
     uvicorn.run(app, host="0.0.0.0", port=5003)

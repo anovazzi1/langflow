@@ -1,7 +1,5 @@
 from fastapi import APIRouter
-import signature
-import list_endpoints
-import payload
+from langflow import signature, list_endpoints, payload
 from langchain.agents.loading import load_agent_executor_from_config
 from langchain.chains.loading import load_chain_from_config
 from langchain.llms.loading import load_llm_from_config
@@ -24,7 +22,7 @@ def get_type_list():
     return all_types
 
 
-@router.get("/")
+@router.get("/all")
 def get_all():
     return {
         "chains": {
