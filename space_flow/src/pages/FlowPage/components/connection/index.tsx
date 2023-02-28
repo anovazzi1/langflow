@@ -1,6 +1,7 @@
 import { CSSProperties, FC } from 'react';
 import { Node } from 'reactflow';
 
+//svg displayed when user initiates a new connection
 interface ConnectionLineComponentProps {
 	fromX: number;
 	fromY: number;

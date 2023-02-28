@@ -65,11 +65,9 @@ export default function FlowPage({ flow }) {
 	}, [nodes, edges]);
 	//update flow when the flow props change
 	useEffect(() => {
+		setViewport(flow?.data?.viewport ?? { x: 1, y: 0, zoom: 1 });
 		setNodes(flow?.data?.nodes ?? []);
 		setEdges(flow?.data?.edges ?? []);
-		if (reactFlowInstance) {
-			setViewport(flow?.data?.viewport ?? { x: 1, y: 0, zoom: 1 });
-		}
 	}, [flow, reactFlowInstance, setEdges, setNodes]);
 	useEffect(() => {
 		setExtraComponent(<ExtraSidebar />);
