@@ -9,12 +9,14 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { getAll } from "../../../../controllers/NodesServices";
 import { typesContext } from "../../../../contexts/typesContext";
+import { TabsContext } from "../../../../contexts/tabsContext";
 
 export default function ExtraSidebar() {
   const [data, setData] = useState({});
-  const { setTypes} = useContext(typesContext);
+  const { setTypes } = useContext(typesContext);
+  const { flows, tabIndex } = useContext(TabsContext);
 
-  async function getTypes(){
+  async function getTypes() {
     let d = await getAll();
     setData(d.data);
     setTypes(
@@ -42,7 +44,6 @@ export default function ExtraSidebar() {
   useEffect(() => {
     getTypes();
   }, []);
-
 
   function onDragStart(event: React.DragEvent<any>, data) {
     event.dataTransfer.effectAllowed = "move";
@@ -163,25 +164,37 @@ export default function ExtraSidebar() {
       <DisclosureComponent
         button={{ title: nodeNames["flows"], Icon: nodeIcons["flows"] }}
       >
-        <div className="p-2 flex flex-col gap-2">
-          <div>
-            <div
-              draggable
-              className={" cursor-grab border-l-8 rounded-l-md"}
-              style={{ borderLeftColor: nodeColors["flows"] }}
-              onDragStart={(event) =>
-                onDragStart(event, {
-                  type: "flow",
-                  name: "flowname",
-                })
-              }
-            >
-              <div className="flex w-full justify-between text-sm px-4 py-3 items-center border-dashed border-gray-400 border-l-0 rounded-md rounded-l-none border-2">
-                <span className="text-black w-36 truncate">Flow</span>
-                <Bars2Icon className="w-6 h-6 text-gray-400" />
-              </div>
-            </div>
-          </div>
+        <div className="p-2 pb-0 flex flex-col gap-2">
+          {flows.map((flow, idx) => (
+            <>
+              {idx !== tabIndex ? (
+                <div>
+                  <div
+                    draggable
+                    className={" cursor-grab border-l-8 rounded-l-md"}
+                    style={{ borderLeftColor: nodeColors["flows"] }}
+                    onDragStart={(event) =>
+                      onDragStart(event, {
+                        type: "flow",
+                        name: flow.name,
+                        data: flow.data,
+                        index: idx,
+                      })
+                    }
+                  >
+                    <div className="flex w-full justify-between text-sm px-4 py-3 items-center border-dashed border-gray-400 border-l-0 rounded-md rounded-l-none border-2">
+                      <span className="text-black w-36 truncate">
+                        {flow.name}
+                      </span>
+                      <Bars2Icon className="w-6 h-6 text-gray-400" />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+            </>
+          ))}
         </div>
       </DisclosureComponent>
     </div>

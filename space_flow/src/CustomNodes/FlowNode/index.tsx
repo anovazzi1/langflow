@@ -6,9 +6,11 @@ import ToggleComponent from "../../components/toggleComponent";
 import { useContext, useEffect, useState } from "react";
 import { typesContext } from "../../contexts/typesContext";
 import ParameterComponent from "../GenericNode/components/parameterComponent";
+import { TabsContext } from "../../contexts/tabsContext";
 
 export default function BooleanNode({ data }) {
   const {types, deleteNode} = useContext(typesContext);
+  const {setTabIndex} = useContext(TabsContext);
   const Icon = nodeIcons[types[data.type]];
   return (
     <div className="prompt-node relative bg-white rounded-lg solid border flex flex-col justify-center">
@@ -22,7 +24,7 @@ export default function BooleanNode({ data }) {
         </div>
         <button
           onClick={() => {
-            
+            setTabIndex(data.index);
           }}
         >
           <ArrowTopRightOnSquareIcon className="w-6 h-6 hover:text-blue-500"></ArrowTopRightOnSquareIcon>
@@ -36,7 +38,6 @@ export default function BooleanNode({ data }) {
         </button>
       </div>
       <div className="w-full h-full py-5">
-      <div className="px-5 py-2 mt-2 text-center">Input:</div>
       <ParameterComponent       
         data={data}
         color={
@@ -50,14 +51,13 @@ export default function BooleanNode({ data }) {
         name={data.name}
         tooltipTitle={
           "Type: " +
-          data.name
+          data.name + " input"
         }
         required={data.required}
         id={data.type + data.id}
         left={true}
         type={data.type}
       />
-      <div className="px-5 py-2 mt-2 text-center">Output:</div>
       <ParameterComponent       
         data={data}
         color={
@@ -71,7 +71,7 @@ export default function BooleanNode({ data }) {
         name={data.name}
         tooltipTitle={
           "Type: " +
-          data.name
+          data.name + " output"
         }
         required={data.required}
         id={data.type + data.id}
