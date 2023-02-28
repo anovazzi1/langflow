@@ -1,12 +1,11 @@
-import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { TabsContext } from "../../../../contexts/tabsContext";
 
 var _ = require("lodash");
 
 export default function TabComponent({ selected, flow, onClick }) {
-	const { removeFlow, updateFlow, flows, downloadFlow } =
+	const { removeFlow, updateFlow, flows} =
 		useContext(TabsContext);
 	const [isRename, setIsRename] = useState(false);
 	const [value, setValue] = useState("");
@@ -58,10 +57,6 @@ export default function TabComponent({ selected, flow, onClick }) {
 								>
 									{flow.name}
 								</span>
-								{/* <ArrowDownTrayIcon
-									onClick={() => downloadFlow()}
-									className="w-4 h-4 hover:text-blue-500 cursor-pointer"
-								/> */}
 							</div>
 						)}
 						<button
@@ -75,7 +70,9 @@ export default function TabComponent({ selected, flow, onClick }) {
 						</button>
 					</div>
 				)
-			) : (
+			) : 
+			//add new tab button 
+			(
 				<div className="h-full py-1.5 flex justify-center items-center">
 					<button
 						className="px-3 flex items-center h-full pb-0.5 pt-0.5 border-gray-300 -ml-px border-t border-t-transparent"
