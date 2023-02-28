@@ -7,6 +7,7 @@ import {
   WrenchScrewdriverIcon,
   ComputerDesktopIcon,
   Bars3CenterLeftIcon,
+  PuzzlePieceIcon,
 } from "@heroicons/react/24/outline";
 import { Edge, Node } from "reactflow";
 
@@ -105,6 +106,7 @@ export const nodeColors = {
   memories: "#FF9135",
   advanced: "#000000",
   chat: "#2563EB",
+  flows: "#000000",
 };
 
 export const nodeNames = {
@@ -116,7 +118,7 @@ export const nodeNames = {
   memories: "Memories",
   advanced: "Advanced",
   chat: "Chat",
-
+  flows: "Flows",
 };
 
 export const nodeIcons = {
@@ -128,6 +130,7 @@ export const nodeIcons = {
   tools: WrenchScrewdriverIcon,
   advanced: ComputerDesktopIcon,
   chat: Bars3CenterLeftIcon,
+  flows: PuzzlePieceIcon, 
 };
 
 export const bgColors = {

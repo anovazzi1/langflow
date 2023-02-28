@@ -25,6 +25,7 @@ import {
 	ArrowDownTrayIcon,
 	ArrowUpTrayIcon,
 } from "@heroicons/react/24/outline";
+import FlowNode from "../../CustomNodes/FlowNode";
 
 const nodeTypes = {
 	genericNode: GenericNode,
@@ -32,6 +33,7 @@ const nodeTypes = {
 	chatInputNode: ChatInputNode,
 	chatOutputNode: ChatOutputNode,
 	booleanNode: BooleanNode,
+	flowNode: FlowNode,
 };
 
 var _ = require("lodash");
@@ -135,6 +137,8 @@ export default function FlowPage({ flow }) {
 							? "chatOutputNode"
 							: data.type === "bool"
 							? "booleanNode"
+							: data.type === "flow"
+							? "flowNode"
 							: "genericNode",
 					position,
 					data: {

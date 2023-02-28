@@ -38,14 +38,14 @@ export default function ParameterComponent({
     updateNodeInternals(data.id);
   }, [data.id, position, updateNodeInternals]);
 
-  const [enabled, setEnabled] = useState(data.node.template[name]?.value ?? false);
+  const [enabled, setEnabled] = useState(data.node?.template[name]?.value ?? false);
   const {reactFlowInstance} = useContext(typesContext);
   let disabled = reactFlowInstance?.getEdges().some((e) => (e.targetHandle === id)) ?? false;
 
   return (
     <div ref={ref} className="w-full flex flex-wrap justify-between items-center bg-gray-50 mt-1 px-5 py-2">
       <>
-        <div className="text-sm truncate">{title}<span className="text-red-600">{required ? " *" : ""}</span></div>
+        <div className={(left ? "" : "text-right w-full ") + "text-sm truncate"}>{title}<span className="text-red-600">{required ? " *" : ""}</span></div>
         <Tooltip title={tooltipTitle + (required ? " (required)" : "")}>
           <Handle
             type={left ? "target" : "source"}

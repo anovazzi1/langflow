@@ -33,6 +33,7 @@ export default function ExtraSidebar() {
           bool: "advanced",
           chatOutput: "chat",
           chatInput: "chat",
+          flow: "flows",
         }
       )
     );
@@ -153,6 +154,30 @@ export default function ExtraSidebar() {
             >
               <div className="flex w-full justify-between text-sm px-4 py-3 items-center border-dashed border-gray-400 border-l-0 rounded-md rounded-l-none border-2">
                 <span className="text-black w-36 truncate">Boolean</span>
+                <Bars2Icon className="w-6 h-6 text-gray-400" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </DisclosureComponent>
+      <DisclosureComponent
+        button={{ title: nodeNames["flows"], Icon: nodeIcons["flows"] }}
+      >
+        <div className="p-2 flex flex-col gap-2">
+          <div>
+            <div
+              draggable
+              className={" cursor-grab border-l-8 rounded-l-md"}
+              style={{ borderLeftColor: nodeColors["flows"] }}
+              onDragStart={(event) =>
+                onDragStart(event, {
+                  type: "flow",
+                  name: "flowname",
+                })
+              }
+            >
+              <div className="flex w-full justify-between text-sm px-4 py-3 items-center border-dashed border-gray-400 border-l-0 rounded-md rounded-l-none border-2">
+                <span className="text-black w-36 truncate">Flow</span>
                 <Bars2Icon className="w-6 h-6 text-gray-400" />
               </div>
             </div>
