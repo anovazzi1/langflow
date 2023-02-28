@@ -12,7 +12,7 @@ import { alertContext } from '../../contexts/alertContext'
 import { useLayer,Arrow } from 'react-laag'
 import AlertDropdown from '../../alerts/alertDropDown'
 
-export default function Header({user, userNavigation}){
+export default function Header(){
   const {notificationCenter, setNotificationCenter} = useContext(alertContext)
   const [isOpen,setIsOpen] = useState(false)
   const {layerProps,renderLayer, triggerProps} = useLayer({

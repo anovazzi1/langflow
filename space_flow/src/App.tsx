@@ -37,7 +37,6 @@ export default function App() {
 	} = useContext(alertContext);
 
 	const [alertsList, setAlertsList] = useState([]);
-
 	useEffect(() => {
 		if (errorOpen && errorData) {
 			setErrorOpen(false);
@@ -75,32 +74,15 @@ export default function App() {
 		);
 	};
 
-	const user = {
-		name: "Whitney Francis",
-		email: "whitney.francis@example.com",
-		imageUrl:
-			"https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-	};
-
-	const userNavigation = [
-		{ name: "Your Projects", href: "/" },
-		// {
-		//   name: "Account settings",
-		//   href: "http://localhost:4455/.ory/kratos/public/self-service/settings/browser",
-		// },
-		{ name: "Sign out", href: "/" },
-	];
-
 	return (
 		//need parent component with width and height
 		<div className="h-full flex flex-col">
 			<div className="flex grow-0 shrink basis-auto">
-				<Header userNavigation={userNavigation} user={user}></Header>
+				<Header></Header>
 			</div>
 			<div className="flex grow shrink basis-auto min-h-0 flex-1 overflow-hidden">
 				<Sidebar />
 				<ExtraSidebar />
-
 				{/* Main area */}
 				<main className="min-w-0 flex-1 border-t border-gray-200 flex">
 					{/* Primary column */}
@@ -110,6 +92,7 @@ export default function App() {
 				</main>
 			</div>
 			<div className="flex z-50 flex-col-reverse fixed bottom-5 left-5">
+				{/* alert instances of alert context */}
 				{alertsList.map((alert) => (
 					<div key={alert.id}>
 						{alert.type === "error" ? (

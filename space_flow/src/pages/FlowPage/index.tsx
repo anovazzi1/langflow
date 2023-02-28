@@ -1,11 +1,10 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import ReactFlow, {
 	Background,
 	Controls,
 	addEdge,
 	useEdgesState,
 	useNodesState,
-	ReactFlowProvider,
 	useReactFlow,
 	ControlButton,
 } from "reactflow";
@@ -49,7 +48,7 @@ export default function FlowPage({ flow }) {
 
 	const { setExtraComponent, setExtraNavigation } = useContext(locationContext);
 	const { setErrorData } = useContext(alertContext);
-
+	//set flow initial data
 	const [nodes, setNodes, onNodesChange] = useNodesState(
 		flow.data?.nodes ?? []
 	);
@@ -57,14 +56,14 @@ export default function FlowPage({ flow }) {
 		flow.data?.edges ?? []
 	);
 	const { setViewport } = useReactFlow();
-
+	//save actual state of the flow when a node or an edge is added
 	useEffect(() => {
 		if (reactFlowInstance && flow) {
 			flow.data = reactFlowInstance.toObject();
 			updateFlow(flow);
 		}
 	}, [nodes, edges]);
-
+	//update flow when the flow props change
 	useEffect(() => {
 		setNodes(flow?.data?.nodes ?? []);
 		setEdges(flow?.data?.edges ?? []);
@@ -72,7 +71,6 @@ export default function FlowPage({ flow }) {
 			setViewport(flow?.data?.viewport ?? { x: 1, y: 0, zoom: 1 });
 		}
 	}, [flow, reactFlowInstance, setEdges, setNodes]);
-
 	useEffect(() => {
 		setExtraComponent(<ExtraSidebar />);
 		setExtraNavigation({ title: "Nodes" });
@@ -156,6 +154,7 @@ export default function FlowPage({ flow }) {
 
 	return (
 		<div className="w-full h-full" ref={reactFlowWrapper}>
+			{/* wait for loading types before render the flow */}
 			{Object.keys(types).length > 0 ? (
 				<>
 					<ReactFlow
